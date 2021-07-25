@@ -14,8 +14,12 @@ class Comment(models.Model):
     time_stamp = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
 
+class Category(models.Model):
+    name = models.CharField(max_length=25)
+
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     title = models.CharField(max_length=50)
     content = models.TextField()
     image = models.ImageField(upload_to="profile_images", blank=True)
