@@ -9,11 +9,6 @@ class Profile(models.Model):
     image = models.ImageField(upload_to="profile_images", blank=True)
     bio = models.TextField()
 
-class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    time_stamp = models.DateTimeField(auto_now_add=True)
-    content = models.TextField()
-
 class Category(models.Model):
     name = models.CharField(max_length=25)
 
@@ -28,3 +23,13 @@ class Post(models.Model):
     status = models.CharField(max_length=50, blank=True)
     # slug = models.IntegerField()
     slug = models.SlugField()
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    time_stamp = models.DateTimeField(auto_now_add=True)
+    content = models.TextField()
+
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
