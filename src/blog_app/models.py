@@ -14,3 +14,13 @@ class Comment(models.Model):
     time_stamp = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
 
+class Post(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=50)
+    content = models.TextField()
+    image = models.ImageField(upload_to="profile_images", blank=True)
+    publish_date = models.DateTimeField(auto_now_add=True)
+    last_updated = models.DateTimeField(auto_now=True)
+    status = models.CharField(max_length=50, blank=True)
+    # slug = models.IntegerField()
+    slug = models.SlugField()
