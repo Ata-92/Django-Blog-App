@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light px-5" style="background-color: #5F788A;">
   <div class="container-fluid">
-    <a class="navbar-brand text-light" href={% url '' %}>Clarusway Blog</a>
+    <a class="navbar-brand text-light" href=''>Clarusway Blog</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -10,19 +10,19 @@
           <a class="nav-link active text-light" aria-current="page" href={% url 'home' %}>Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" href={% url 'about/' %}>About</a>
+          <a class="nav-link text-light" href="">About</a>
         </li>
       </ul>
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         {% if request.user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link active text-white" aria-current="page" href={% url '' %}>Logout</a>
+            <a class="nav-link active text-white" aria-current="page" href="">Logout</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href={% url 'profile/' %}>Profile</a>
+            <a class="nav-link text-white" href="">Profile</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href={% url 'newpost' %}>New Post</a>
+            <a class="nav-link text-white" href="">New Post</a>
           </li>
         {% else %}
           <li class="nav-item">

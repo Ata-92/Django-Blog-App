@@ -5,10 +5,21 @@
 
 {% block content %}
   {% load crispy_forms_tags %}
-  <h2>Login</h2>
-  <form action="" method="post">
-    {% csrf_token %}
-    {{form | crispy}}
-    <button type="submit" class="btn btn-outline-primary">Login</button>
-  </form>
+  <div class="w-75 mx-auto my-5 p-3 container-fluid bg-white d-flex flex-column justify-content-around" style="height: 60vh;">
+    <h2 class="fw-normal">Login</h2>
+    <hr>
+    <form action="" method="post" class="d-flex flex-column justify-content-around h-75">
+      {% csrf_token %}
+      {{form | crispy}}
+      <div>
+        <button type="submit" class="btn btn-outline-primary">Login</button>
+        <a href="" class="btn text-primary">Forgot Password?</a>
+      </div>
+    </form>
+    <hr>
+    <div class="">
+      <span>Need an account?</span>
+      <a href="" class="btn text-primary">Sign Up Now</a>
+    </div>
+  </div>
 {% endblock content %}
