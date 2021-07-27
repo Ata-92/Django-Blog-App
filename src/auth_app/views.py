@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 # from blog_app.forms import LoginForm
 from django.contrib.auth import authenticate, login, logout
-from auth_app.forms import RegisterForm
+from auth_app.forms import ProfileForm, RegisterForm
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -70,3 +70,15 @@ def logout_view(request):
 
 def about_view(request):
     return render(request, "auth_app/about.html")
+
+def profile_view(request):
+    if request.method == "POST":
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            pass
+
+    form = ProfileForm(request.user)
+    context = {
+        "form": form
+    }
+    return render(request, "auth_app/profile.html", context)
