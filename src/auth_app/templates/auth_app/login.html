@@ -13,7 +13,7 @@
       {{form | crispy}}
       <div>
         <button type="submit" class="btn btn-outline-primary">Login</button>
-        <a href="" class="btn text-primary">Forgot Password?</a>
+        <a href={% url 'password_reset' %} class="btn text-primary">Forgot Password?</a>
       </div>
     </form>
     <hr>
