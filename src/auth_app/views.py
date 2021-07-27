@@ -67,3 +67,6 @@ def logout_view(request):
     messages.success(request, "Logout successful")
     logout(request)
     return render(request, "auth_app/logout.html")
+
+def about_view(request):
+    return render(request, "auth_app/about.html")
