@@ -2,8 +2,9 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 # from blog_app.forms import LoginForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from auth_app.forms import RegisterForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -60,3 +61,9 @@ def register_view(request):
         "form": form
     }
     return render(request, "auth_app/register.html", context)
+
+@login_required
+def logout_view(request):
+    messages.success(request, "Logout successful")
+    logout(request)
+    return redirect("home")
