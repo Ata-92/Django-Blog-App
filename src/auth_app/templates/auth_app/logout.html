@@ -5,7 +5,9 @@
 {% endblock title %}
 
 {% block content %}
-  <h2 class="my-3">You have been logged out</h2>
-  <hr>
-  <a href={% url 'login' %} class="btn text-primary">Login Again</a>
+  <div class="w-75 mx-auto my-5 p-3 container-fluid bg-white d-flex flex-column justify-content-around">
+    <h2 class="fw-normal">You have been logged out</h2>
+    <hr>
+    <a href={% url 'login' %} class="btn text-primary align-self-start">Login Again</a>
+  </div>
 {% endblock content %}

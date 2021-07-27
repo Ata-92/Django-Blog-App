@@ -66,4 +66,4 @@ def register_view(request):
 def logout_view(request):
     messages.success(request, "Logout successful")
     logout(request)
-    return redirect("logout")
+    return render(request, "auth_app/logout.html")

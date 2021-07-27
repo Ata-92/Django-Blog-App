@@ -9,5 +9,5 @@ urlpatterns = [
     path("password_reset_done/", auth_views.PasswordResetDoneView.as_view(template_name="auth_app/password_reset_done.html"), name="password_reset_done"),
     path("register/", register_view, name="register"),
     path("inactive/", register_view, name="inactive"),
-    path("logout/", logout_view, name="logout"),
+    path("logout/", logout_view, name="logout")
 ]
