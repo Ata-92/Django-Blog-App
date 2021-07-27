@@ -1,0 +1,11 @@
+{% extends "auth_app/base.html" %}
+
+{% block title %}
+  Logout
+{% endblock title %}
+
+{% block content %}
+  <h2 class="my-3">You have been logged out</h2>
+  <hr>
+  <a href={% url 'login' %} class="btn text-primary">Login Again</a>
+{% endblock content %}
