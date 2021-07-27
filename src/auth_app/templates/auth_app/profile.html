@@ -1,0 +1,30 @@
+{% extends 'auth_app/base.html' %}
+{% load static %}
+{% block title %}
+  Profile
+{% endblock title %}
+{% block content %}
+  {% load crispy_forms_tags %}
+  <div class="w-75 mx-auto my-5 p-3 container-fluid bg-white d-flex flex-column justify-content-around" style="height: 90vh;">
+    <div class="d-flex align-items-center">
+      <div class="flex-shrink-0">
+        {% if form.image %}
+          <img src={{form.image}} alt="{{form.user}} profile">
+        {% else %}
+          <img src={% static 'auth_app/images/avatar.png' %} class="rounded-circle" alt="avatar icon">
+        {% endif %}
+      </div>
+      <div class="flex-grow-1 ms-3">
+        <h2>{{form.user}}</h2>
+        <p class="text-secondary">{{form.user.email}}</p>
+      </div>
+    </div>
+    <h3 class="fw-normal">Profile</h3>
+    <hr>
+    <form action="" method="post" class="d-flex flex-column justify-content-around h-75">
+      {% csrf_token %}
+      {{form | crispy}}
+      <button type="submit" class="btn btn-outline-primary align-self-start">Update</button>
+    </form>
+  </div>
+{% endblock content %}
