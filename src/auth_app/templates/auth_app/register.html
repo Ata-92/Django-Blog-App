@@ -1,0 +1,22 @@
+{% extends 'auth_app/base.html' %}
+{% block title %}
+  Register
+{% endblock title %}
+
+{% block content %}
+  {% load crispy_forms_tags %}
+  <div class="w-75 mx-auto my-5 p-3 container-fluid bg-white d-flex flex-column justify-content-around" style="height: 60vh;">
+    <h2 class="fw-normal">Join Today</h2>
+    <hr>
+    <form action="" method="post" class="d-flex flex-column justify-content-around h-75">
+      {% csrf_token %}
+      {{form | crispy}}
+      <button type="submit" class="btn btn-outline-primary">Sign Up</button>
+    </form>
+    <hr>
+    <div>
+      <span>Already have an account?</span>
+      <a href="login/" class="btn text-primary">Sign In</a>
+    </div>
+  </div>
+{% endblock content %}
