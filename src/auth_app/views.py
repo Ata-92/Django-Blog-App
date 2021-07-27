@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login
 # Create your views here.
 
 def home_view(request):
-    return render(request, "blog_app/home.html")
+    return render(request, "auth_app/home.html")
 
 # def login_view(request):
 #     form = LoginForm(request.POST or None)

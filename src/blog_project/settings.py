@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # my apps
-    "blog_app",
+    "auth_app",
     # my 3rd party libs
     "crispy_forms"
 ]
