@@ -51,7 +51,7 @@ def register_view(request):
                 return redirect("home")
             else:
                 messages.error(request, "Account is not active")
-                return redirect("home")
+                return redirect("inactive")
         else:
             messages.error(request, "Username or password is wrong!")
             return redirect("login")
