@@ -7,5 +7,5 @@ from django.contrib.auth.models import User
 #         model = User
 #         fields = ("username", "password")
 
-class RegisterForm(forms.Form, UserCreationForm):
+class RegisterForm(UserCreationForm):
     email = forms.EmailField()

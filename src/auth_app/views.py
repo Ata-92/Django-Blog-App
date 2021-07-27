@@ -1,7 +1,9 @@
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 # from blog_app.forms import LoginForm
 from django.contrib.auth import authenticate, login
+from auth_app.forms import RegisterForm
 
 # Create your views here.
 
@@ -29,3 +31,32 @@ def home_view(request):
 #             messages.error(request, "Password or username is wrong!")
 #             return render(request, "blog_app/login.html", context)
 #     return render(request, "blog_app/login.html", context)
+
+def register_view(request):
+    form = RegisterForm(request.POST or None)
+    if form.is_valid():
+        username = form.cleaned_data["username"]
+        email = form.cleaned_data.get("email")
+        password = form.cleaned_data.get("password1")
+        user = User.objects.create(username=username, email=email)
+        user.set_password(password)
+        # user.save()
+        messages.success(request, "Register successful")
+
+        authenticated_user = authenticate(username=username, password=password)
+        if authenticated_user:
+            if authenticated_user.is_active:
+                messages.success(request, "Login successful")
+                login(request, authenticated_user)
+                return redirect("home")
+            else:
+                messages.error(request, "Account is not active")
+                return redirect("home")
+        else:
+            messages.error(request, "Username or password is wrong!")
+            return redirect("login")
+
+    context = {
+        "form": form
+    }
+    return render(request, "auth_app/register.html", context)
