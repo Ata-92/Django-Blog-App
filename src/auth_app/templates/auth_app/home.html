@@ -7,8 +7,8 @@
 {% block content %}
   <h1 class="text-center my-3">Clarusway Blog</h1>
   {% if request.user.is_authenticated %}
-    <p>Welcome {{request.user}}</p>
+    <h2 class="ms-5 text-success">Welcome {{request.user}}</h2>
   {% else %}
-    <p>Welcome Guest</p>
+    <h2 class="ms-5 text-info">Welcome Guest</h2>
   {% endif %}
 {% endblock content %}
