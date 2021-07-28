@@ -5,7 +5,6 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth import authenticate, login, logout
 from auth_app.forms import ProfileForm, RegisterForm, UserForm
 from django.contrib.auth.decorators import login_required
-
 from auth_app.models import Profile
 
 # Create your views here.
@@ -38,12 +37,16 @@ def home_view(request):
 def register_view(request):
     form = RegisterForm(request.POST or None)
     if form.is_valid():
+        # To get username and password to authenticate from here
         username = form.cleaned_data["username"]
-        email = form.cleaned_data.get("email")
         password = form.cleaned_data.get("password1")
-        user = User.objects.create(username=username, email=email)
-        user.set_password(password)
+        # to here
+        # email = form.cleaned_data.get("email")
+        # user = User(username=username, email=email)
+        # user = User.objects.create(username=username, email=email)
+        # user.set_password(password)
         # user.save()
+        form.save()
         messages.success(request, "Register successful")
 
         authenticated_user = authenticate(username=username, password=password)
@@ -74,13 +77,24 @@ def about_view(request):
     return render(request, "auth_app/about.html")
 
 def profile_view(request):
-    user =get_object_or_404(User, username=request.user)
-    profile =get_object_or_404(Profile, user=request.user)
+    try:
+        user_profile = request.user.profile
+    except:
+        user_profile = None
+    user = request.user
+    # user = get_object_or_404(User, username=request.user)
     user_info = UserForm(request.POST or None, instance=user)
-    profile_info = ProfileForm(request.POST or None, instance=profile)
+    profile_info = ProfileForm(request.POST or None, request.FILES, instance=user_profile)
+
     if user_info.is_valid() and profile_info.is_valid():
-        user_info.save()
-        profile_info.save()
+        user_field = user_info.save()
+
+        profile = profile_info.save(commit=False)
+        profile.user = user_field
+        # Alternative way for request.FILES
+        # if "image" in request.FILES:
+        #     profile.image = request.FILES["image"]
+        profile.save()
         messages.success(request, "Profile updated successfully")
         return redirect("home")
 
