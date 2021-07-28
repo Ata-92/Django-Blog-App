@@ -67,7 +67,7 @@ def register_view(request):
     }
     return render(request, "auth_app/register.html", context)
 
-@login_required
+# @login_required
 def logout_view(request):
     messages.success(request, "Logout successful")
     logout(request)
