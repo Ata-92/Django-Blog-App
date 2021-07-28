@@ -6,4 +6,9 @@
 
 {% block content %}
   <h1 class="text-center my-3">Clarusway Blog</h1>
+  {% if request.user.is_authenticated %}
+    <p>Welcome {{request.user}}</p>
+  {% else %}
+    <p>Welcome Guest</p>
+  {% endif %}
 {% endblock content %}

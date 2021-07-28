@@ -79,7 +79,10 @@ def profile_view(request):
     user_info = UserForm(request.POST or None, instance=user)
     profile_info = ProfileForm(request.POST or None, instance=profile)
     if user_info.is_valid() and profile_info.is_valid():
-        pass
+        user_info.save()
+        profile_info.save()
+        messages.success(request, "Profile updated successfully")
+        return redirect("home")
 
     context = {
         "user_info": user_info,
