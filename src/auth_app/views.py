@@ -1,10 +1,12 @@
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 # from blog_app.forms import LoginForm
 from django.contrib.auth import authenticate, login, logout
-from auth_app.forms import ProfileForm, RegisterForm
+from auth_app.forms import ProfileForm, RegisterForm, UserForm
 from django.contrib.auth.decorators import login_required
+
+from auth_app.models import Profile
 
 # Create your views here.
 
@@ -72,14 +74,15 @@ def about_view(request):
     return render(request, "auth_app/about.html")
 
 def profile_view(request):
-    if request.method == "POST":
-        form = ProfileForm(request.POST)
-        if form.is_valid():
-            pass
+    user =get_object_or_404(User, username=request.user)
+    profile =get_object_or_404(Profile, user=request.user)
+    user_info = UserForm(request.POST or None, instance=user)
+    profile_info = ProfileForm(request.POST or None, instance=profile)
+    if user_info.is_valid() and profile_info.is_valid():
+        pass
 
-    form = ProfileForm()
     context = {
-        "form": form
+        "user_info": user_info,
+        "profile_info": profile_info
     }
-    # print(form)
     return render(request, "auth_app/profile.html", context)

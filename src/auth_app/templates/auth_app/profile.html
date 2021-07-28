@@ -23,7 +23,8 @@
     <hr>
     <form action="" method="post" class="d-flex flex-column justify-content-around h-75">
       {% csrf_token %}
-      {{form | crispy}}
+      {{user_info | crispy}}
+      {{profile_info | crispy}}
       <button type="submit" class="btn btn-outline-primary align-self-start">Update</button>
     </form>
   </div>
