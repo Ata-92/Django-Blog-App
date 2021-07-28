@@ -8,15 +8,15 @@
   <div class="w-75 mx-auto my-5 p-3 container-fluid bg-white d-flex flex-column justify-content-around" style="height: 90vh;">
     <div class="d-flex align-items-center">
       <div class="flex-shrink-0">
-        {% if form.image %}
-          <img src={{form.image}} alt="{{form.user}} profile">
+        {% if request.user.image %}
+          <img src={{form.image}} alt="{{request.user}} profile">
         {% else %}
-          <img src={% static 'auth_app/images/avatar.png' %} class="rounded-circle" alt="avatar icon">
+          <img src={% static 'auth_app/images/avatar.png' %} class="rounded-circle" width="100vw" alt="avatar icon">
         {% endif %}
       </div>
       <div class="flex-grow-1 ms-3">
-        <h2>{{form.user}}</h2>
-        <p class="text-secondary">{{form.user.email}}</p>
+        <h2>{{request.user}}</h2>
+        <p class="text-secondary">{{request.user.email}}</p>
       </div>
     </div>
     <h3 class="fw-normal">Profile</h3>

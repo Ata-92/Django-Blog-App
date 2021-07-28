@@ -77,8 +77,9 @@ def profile_view(request):
         if form.is_valid():
             pass
 
-    form = ProfileForm(request.user)
+    form = ProfileForm()
     context = {
         "form": form
     }
+    # print(form)
     return render(request, "auth_app/profile.html", context)
