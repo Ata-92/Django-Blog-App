@@ -14,7 +14,13 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = ("username", "email")
 
+class UserForm(forms.ModelForm):
+    class Meta():
+        model = User
+        fields = ("username", "email")
+
 class ProfileForm(forms.ModelForm):
     class Meta():
         model = Profile
-        fields = ("user", "image", "bio")
+        # fields = ("image", "bio")
+        exclude = ("user",)
