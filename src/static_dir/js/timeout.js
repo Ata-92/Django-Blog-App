@@ -1,4 +1,6 @@
-const alert = document.querySelector(".alert")
+const alerts = document.querySelectorAll(".alert")
 setTimeout(() => {
-  alert.style.display = "none"
+  for (let i = 0; i < alerts.length; i++) {
+    alerts[i].style.display = "none"
+  }
 }, 3000);
