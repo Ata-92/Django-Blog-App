@@ -11,6 +11,7 @@ from post_app.models import Post
 # Create your views here.
 
 def home_view(request):
+    print(request)
     posts = Post.objects.all()
     context = {
         "posts": posts

@@ -1,7 +1,6 @@
 from django.shortcuts import redirect, render
 from post_app.forms import CategoryForm, PostForm
 from django.contrib import messages
-
 from post_app.models import Category, Post
 
 # Create your views here.
