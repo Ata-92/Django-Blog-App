@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # my apps
     "auth_app",
     "post_app",
+    "django.contrib.humanize",
     # my 3rd party libs
     "crispy_forms"
 ]
