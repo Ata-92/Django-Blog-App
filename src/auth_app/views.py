@@ -6,11 +6,16 @@ from django.contrib.auth import authenticate, login, logout
 from auth_app.forms import ProfileForm, RegisterForm, UserForm
 from django.contrib.auth.decorators import login_required
 from auth_app.models import Profile
+from post_app.models import Post
 
 # Create your views here.
 
 def home_view(request):
-    return render(request, "auth_app/home.html")
+    posts = Post.objects.all()
+    context = {
+        "posts": posts
+    }
+    return render(request, "auth_app/home.html", context)
 
 # def login_view(request):
 #     form = LoginForm(request.POST or None)
