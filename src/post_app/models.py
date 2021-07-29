@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Category(models.Model):
-    name = models.CharField(max_length=25)
+    CATEGORIES = (("Frontend", "Frontend"), ("Backend", "Backend"), ("Full Stack", "Full Stack"))
+    name = models.CharField(max_length=25, choices=CATEGORIES, default="Frontend")
 
     def __str__(self):
         return self.name
