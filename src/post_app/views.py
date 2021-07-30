@@ -25,3 +25,21 @@ def newpost_view(request):
         "post_form": post_form
     }
     return render(request, "post_app/newpost.html", context)
+
+def details_view(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    if request.POST.get("like"):
+        Like.objects.filter(user=request.user, post=post).delete()
+    elif request.POST.get("dislike"):
+        Like.objects.create(user=request.user, post=post)
+    elif request.POST.get("comment"):
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            content = comment_form.cleaned_data["content"]
+            Comment.objects.create(user=request.user, post=post, content=content)
+            # or
+            # comment = comment_form.save(commit=False)
+            # comment.user = request.user
+            # comment.post = post
+            # comment.save()
+    return render(request, "post_app/details.html", context)
