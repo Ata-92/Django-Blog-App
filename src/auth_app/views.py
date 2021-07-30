@@ -12,21 +12,12 @@ from post_app.models import Comment, Like, Post, PostView
 
 def home_view(request):
     posts = Post.objects.all()
-
     for post in posts:
-        # counts = {
-        #     "comments": Comment.objects.filter(post=post).count(),
-        #     "views": PostView.objects.filter(post=post).count(),
-        #     "likes": Like.objects.filter(post=post).count()
-        # }
         post.comments = Comment.objects.filter(post=post).count()
         post.views = PostView.objects.filter(post=post).count()
         post.likes = Like.objects.filter(post=post).count()
     context = {
-        "posts": posts,
-        # "comments": comments,
-        # "views": views,
-        # "likes": likes
+        "posts": posts
     }
     return render(request, "auth_app/home.html", context)
 
@@ -99,7 +90,7 @@ def profile_view(request):
     # user = get_object_or_404(User, username=request.user)
     user_profile = Profile.objects.get(user=request.user)
     user_info = UserForm(request.POST or None, instance=request.user)
-    profile_info = ProfileForm(request.POST or None, request.FILES, instance=user_profile)
+    profile_info = ProfileForm(request.POST or None, request.FILES or None, instance=user_profile)
 
     if user_info.is_valid() and profile_info.is_valid():
         user_field = user_info.save()
