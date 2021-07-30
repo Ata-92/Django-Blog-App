@@ -7,15 +7,15 @@
   <div class="w-75 mx-auto my-5 p-3 container-fluid bg-white d-flex flex-column justify-content-around" style="height: 120vh;">
     <div class="d-flex align-items-center">
       <div class="flex-shrink-0">
-        {% if request.user.profile.image %}
-          <img src={{request.user.profile.image.url}} class="rounded-circle" width="100vw" alt="{{request.user}} profile">
+        {% if user.profile.image %}
+          <img src={{user.profile.image.url}} class="rounded-circle" width="100vw" alt="{{user}} profile">
         {% else %}
           <img src="../../../media/profile_images/avatar.png" class="rounded-circle" width="100vw" alt="avatar icon">
         {% endif %}
       </div>
       <div class="flex-grow-1 ms-3">
-        <h2>{{request.user}}</h2>
-        <p class="text-secondary">{{request.user.email}}</p>
+        <h2>{{user}}</h2>
+        <p class="text-secondary">{{user.email}}</p>
       </div>
     </div>
     <h3 class="fw-normal mt-3">Profile</h3>
