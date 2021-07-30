@@ -42,4 +42,21 @@ def details_view(request, slug):
             # comment.user = request.user
             # comment.post = post
             # comment.save()
+
+    PostView.objects.create(user=request.user, post=post)
+    comments = Comment.objects.filter(post=post).count()
+    views = PostView.objects.filter(post=post).count()
+    likes = Like.objects.filter(post=post).count()
+    user_like_check = Like.objects.filter(user=request.user, post=post).exists()
+    comment_form = CommentForm()
+    comment_list = Comment.objects.filter(post=post)
+    context = {
+        "post": post,
+        "comments": comments,
+        "views": views,
+        "likes": likes,
+        "user_like_check": user_like_check,
+        "comment_form": comment_form,
+        "comment_list": comment_list
+    }
     return render(request, "post_app/details.html", context)
