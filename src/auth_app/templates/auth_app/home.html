@@ -17,29 +17,15 @@
           <div class="card h-100">
             <img src={{post.image.url}} class="card-img-top" alt="{{post.title}} icon">
             <div class="card-body">
-              <a href="" class="card-title btn text-primary fw-bold"><p class="h3">{{post.title}}</p></a>
+              <a href={% url 'details' post.slug %} class="card-title btn text-primary fw-bold"><p class="h3">{{post.title}}</p></a>
               <p class="card-text">{{post.content}}</p>
 
               <i class="far fa-comment-alt"></i>
-              {% if post.comment %}
-                <span>{{post.comment}}</span>
-              {% else %}
-                <span>0</span>
-              {% endif %}
-
+              <span>{{post.comments}}</span>
               <i class="fas fa-eye"></i>
-              {% if post.view %}
-                <span>{{post.view}}</span>
-              {% else %}
-                <span>0</span>
-              {% endif %}
-
+              <span>{{post.views}}</span>
               <i class="far fa-heart"></i>
-              {% if post.like %}
-                <span>{{post.like}}</span>
-              {% else %}
-                <span>0</span>
-              {% endif %}
+              <span>{{post.likes}}</span>
 
               <p class="mt-3">Posted {{post.publish_date | naturaltime}}</p>
             </div>
