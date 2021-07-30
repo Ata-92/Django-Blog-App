@@ -60,3 +60,21 @@ def details_view(request, slug):
         "comment_list": comment_list
     }
     return render(request, "post_app/details.html", context)
+
+def update_view(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    form = PostForm(request.POST or None, request.FILES or None, instance=post)
+    if form.is_valid():
+        category_data = form.cleaned_data["category"]
+        if Category.objects.filter(name=category_data):
+            category = Category.objects.get(name=category_data)
+        else:
+            category = Category.objects.create(name=category_data)
+
+        post = form.save(commit=False)
+        post.category = category
+        post.save()
+        messages.success(request, "Post updated successfully")
+        return redirect("home")
+
+    return render(request, "post_app/update.html", {"form": form})
