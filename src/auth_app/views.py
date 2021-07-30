@@ -6,15 +6,27 @@ from django.contrib.auth import authenticate, login, logout
 from auth_app.forms import ProfileForm, RegisterForm, UserForm
 from django.contrib.auth.decorators import login_required
 from auth_app.models import Profile
-from post_app.models import Post
+from post_app.models import Comment, Like, Post, PostView
 
 # Create your views here.
 
 def home_view(request):
-    print(request)
     posts = Post.objects.all()
+
+    for post in posts:
+        # counts = {
+        #     "comments": Comment.objects.filter(post=post).count(),
+        #     "views": PostView.objects.filter(post=post).count(),
+        #     "likes": Like.objects.filter(post=post).count()
+        # }
+        post.comments = Comment.objects.filter(post=post).count()
+        post.views = PostView.objects.filter(post=post).count()
+        post.likes = Like.objects.filter(post=post).count()
     context = {
-        "posts": posts
+        "posts": posts,
+        # "comments": comments,
+        # "views": views,
+        # "likes": likes
     }
     return render(request, "auth_app/home.html", context)
 
@@ -83,13 +95,10 @@ def about_view(request):
     return render(request, "auth_app/about.html")
 
 def profile_view(request):
-    try:
-        user_profile = request.user.profile
-    except:
-        user_profile = None
-    user = request.user
+    # user = request.user
     # user = get_object_or_404(User, username=request.user)
-    user_info = UserForm(request.POST or None, instance=user)
+    user_profile = Profile.objects.get(user=request.user)
+    user_info = UserForm(request.POST or None, instance=request.user)
     profile_info = ProfileForm(request.POST or None, request.FILES, instance=user_profile)
 
     if user_info.is_valid() and profile_info.is_valid():
