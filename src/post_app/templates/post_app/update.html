@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}
+  Update Post
+{% endblock title %}
+{% block content %}
+  {% load crispy_forms_tags %}
+  <div class="w-50 mx-auto my-5 p-3 container-fluid bg-white d-flex flex-column justify-content-around" style="height: 120vh;">
+    <h3 class="fw-normal">Update Post</h3>
+    <hr>
+    <form action="" method="post" enctype="multipart/form-data" class="d-flex flex-column justify-content-around h-100">
+      {% csrf_token %}
+      {{form | crispy}}
+      <button type="submit" class="btn btn-outline-primary align-self-start">Update</button>
+    </form>
+  </div>
+{% endblock content %}
