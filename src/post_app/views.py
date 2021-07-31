@@ -76,5 +76,12 @@ def update_view(request, slug):
         post.save()
         messages.success(request, "Post updated successfully")
         return redirect("home")
-
     return render(request, "post_app/update.html", {"form": form})
+
+def delete_view(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    if request.method == "POST":
+        post.delete()
+        messages.success(request, "Post deleted successfully")
+        return redirect("home")
+    return render(request, "post_app/delete.html", {"post": post})
