@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Delete Post
+{% endblock title %}
+
+{% block content %}
+  {% load crispy_forms_tags %}
+  <div class="w-75 mx-auto my-5 p-3 container-fluid bg-white d-flex flex-column justify-content-around" style="height: 40vh;">
+    <h2 class="fw-normal">Delete Post</h2>
+    <hr>
+    <form action="" method="post" class="d-flex flex-column justify-content-around h-75">
+      {% csrf_token %}
+      <p>Are you sure you want to delete <span class="fw-bold text-danger fs-5">"{{post.title}}" ?</span></p>
+      <p>
+        <a href={% url 'home' %} class="btn btn-warning align-self-start">Cancel</a>
+        <button type="submit" class="btn btn-danger align-self-start text-white ms-3">Delete</button>
+      </p>
+    </form>
+  </div>
+{% endblock content %}
