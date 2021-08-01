@@ -28,7 +28,9 @@ def newpost_view(request):
 
 def details_view(request, slug):
     post = get_object_or_404(Post, slug=slug)
-    if request.POST.get("like"):
+    if request.method == "POST" and not request.user.is_authenticated:
+        return redirect("login")
+    elif request.POST.get("like"):
         Like.objects.filter(user=request.user, post=post).delete()
     elif request.POST.get("dislike"):
         Like.objects.create(user=request.user, post=post)
@@ -43,13 +45,17 @@ def details_view(request, slug):
             # comment.post = post
             # comment.save()
 
-    PostView.objects.create(user=request.user, post=post)
+    if request.user.is_authenticated:
+        PostView.objects.create(user=request.user, post=post)
+        user_like_check = Like.objects.filter(user=request.user, post=post).exists()
+    else:
+        user_like_check = False
     comments = Comment.objects.filter(post=post).count()
     views = PostView.objects.filter(post=post).count()
     likes = Like.objects.filter(post=post).count()
-    user_like_check = Like.objects.filter(user=request.user, post=post).exists()
     comment_form = CommentForm()
     comment_list = Comment.objects.filter(post=post)
+
     context = {
         "post": post,
         "comments": comments,
