@@ -17,11 +17,11 @@
         <div class="d-flex justify-content-between">
           <p>
             <i class="far fa-comment-alt"></i>
-            <span>{{comments}}</span>
+            <span>{{post.comments}}</span>
             <i class="fas fa-eye"></i>
-            <span>{{views}}</span>
+            <span>{{post.views}}</span>
             <i class="far fa-heart"></i>
-            <span>{{likes}}</span>
+            <span>{{post.likes}}</span>
           </p>
           <p class="">Posted {{post.publish_date | naturaltime}}.</p>
         </div>
@@ -33,7 +33,7 @@
         <p class="text-secondary h4">Enjoy this post? Give it a LIKE!!!</p>
         <form action="" method="post">
           {% csrf_token %}
-          {% if user_like_check %}
+          {% if post.user_like_check %}
             <button type="submit" name="like" value="like"><i class="fas fa-heart"></i></button>
           {% else %}
             <button type="submit" name="dislike" value="dislike"><i class="far fa-heart"></i></button>
@@ -45,14 +45,14 @@
           <p class="text-secondary h4">Leave a comment below</p>
           <form action="" method="post">
             {% csrf_token %}
-            {{comment_form | crispy}}
+            {{post.comment_form | crispy}}
             <button type="submit" name="comment" value="comment" class="mt-3 btn btn-secondary">SEND</button>
           </form>
           <hr>
 
           <p class="text-secondary h4">Comments</p>
-          {% if comment_list %}
-            {% for comment in comment_list %}
+          {% if post.comment_list %}
+            {% for comment in post.comment_list %}
               <p><span class="fw-bold">Comment by {{user}}</span> - <span>{{comment.time_stamp | naturaltime}}.</span></p>
               {{comment.content}}
               <hr>
