@@ -47,23 +47,17 @@ def details_view(request, slug):
 
     if request.user.is_authenticated:
         PostView.objects.create(user=request.user, post=post)
-        user_like_check = Like.objects.filter(user=request.user, post=post).exists()
+        post.user_like_check = Like.objects.filter(user=request.user, post=post).exists()
     else:
-        user_like_check = False
-    comments = Comment.objects.filter(post=post).count()
-    views = PostView.objects.filter(post=post).count()
-    likes = Like.objects.filter(post=post).count()
-    comment_form = CommentForm()
-    comment_list = Comment.objects.filter(post=post)
+        post.user_like_check = False
+    post.comments = Comment.objects.filter(post=post).count()
+    post.views = PostView.objects.filter(post=post).count()
+    post.likes = Like.objects.filter(post=post).count()
+    post.comment_form = CommentForm()
+    post.comment_list = Comment.objects.filter(post=post)
 
     context = {
         "post": post,
-        "comments": comments,
-        "views": views,
-        "likes": likes,
-        "user_like_check": user_like_check,
-        "comment_form": comment_form,
-        "comment_list": comment_list
     }
     return render(request, "post_app/details.html", context)
 
