@@ -7,44 +7,41 @@
 {% block content %}
   {% load crispy_forms_tags %}
   <h2 class="m-5">Details Page</h2>
-  {% comment %} {% if request.user.is_authenticated %}
-    <h2 class="ms-5 text-success">Welcome {{request.user}}</h2>
-  {% else %}
-    <h2 class="ms-5 text-info">Welcome Guest</h2>
-  {% endif %} {% endcomment %}
-    <div class="w-50 mx-auto my-3 container-fluid d-flex">
-      <div class="card">
-        <img src={{post.image.url}} class="card-img-top" alt="{{post.title}} icon">
-        <div class="card-body">
-          <h3 class="card-title fw-bold">{{post.title}}</h3>
-          <hr>
+  <div class="w-50 mx-auto my-3 container-fluid d-flex">
+    <div class="card">
+      <img src={{post.image.url}} class="card-img-top" alt="{{post.title}} icon">
+      <div class="card-body">
+        <h3 class="card-title fw-bold">{{post.title}}</h3>
+        <hr>
 
-          <div class="d-flex justify-content-between">
-            <p>
-              <i class="far fa-comment-alt"></i>
-              <span>{{comments}}</span>
-              <i class="fas fa-eye"></i>
-              <span>{{views}}</span>
-              <i class="far fa-heart"></i>
-              <span>{{likes}}</span>
-            </p>
-            <p class="">Posted {{post.publish_date | naturaltime}}.</p>
-          </div>
-          <hr>
+        <div class="d-flex justify-content-between">
+          <p>
+            <i class="far fa-comment-alt"></i>
+            <span>{{comments}}</span>
+            <i class="fas fa-eye"></i>
+            <span>{{views}}</span>
+            <i class="far fa-heart"></i>
+            <span>{{likes}}</span>
+          </p>
+          <p class="">Posted {{post.publish_date | naturaltime}}.</p>
+        </div>
+        <hr>
 
-          <p class="card-text">{{post.content}}</p>
-          <br>
+        <p class="card-text">{{post.content}}</p>
+        <br>
 
-          <p class="text-secondary h4">Enjoy this post? Give it a LIKE!!!</p>
-          <form action="" method="post">
-            {% csrf_token %}
-            {% if user_like_check %}
-              <button type="submit" name="like" value="like"><i class="fas fa-heart"></i></button>
-            {% else %}
-              <button type="submit" name="dislike" value="dislike"><i class="far fa-heart"></i></button>
-            {% endif %}
-          </form>
-          <hr>
+        <p class="text-secondary h4">Enjoy this post? Give it a LIKE!!!</p>
+        <form action="" method="post">
+          {% csrf_token %}
+          {% if user_like_check %}
+            <button type="submit" name="like" value="like"><i class="fas fa-heart"></i></button>
+          {% else %}
+            <button type="submit" name="dislike" value="dislike"><i class="far fa-heart"></i></button>
+          {% endif %}
+        </form>
+        <hr>
+
+        {% if user.is_authenticated %}
           <p class="text-secondary h4">Leave a comment below</p>
           <form action="" method="post">
             {% csrf_token %}
@@ -64,23 +61,12 @@
             <hr>
           {% endif %}
 
-          <a href={% url 'update' post.slug %} class="btn btn-info text-white mt-3">Edit</a>
-          <a href={% url 'delete' post.slug %} class="btn btn-danger text-white mt-3">Delete</a>
-        </div>
+          {% if user == post.user %}
+            <a href={% url 'update' post.slug %} class="btn btn-info text-white my-3">Edit</a>
+            <a href={% url 'delete' post.slug %} class="btn btn-danger text-white my-3">Delete</a>
+          {% endif %}
+        {% endif %}
       </div>
     </div>
+  </div>
 {% endblock content %}
-
-
-
-
-<div class="card">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      </div>
-      <div class="card-footer">
-        <small class="text-muted">Last updated 3 mins ago</small>
-      </div>
-    </div>
