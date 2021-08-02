@@ -135,6 +135,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static_dir"]
+STATIC_ROOT = "/c/Users/Ata/git/mygithub/Django-Blog-App/src/static_dir"
+# STATIC_ROOT = os.path.join(BASE_DIR, "static_dir")
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
