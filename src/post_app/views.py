@@ -85,3 +85,36 @@ def delete_view(request, slug):
         messages.success(request, "Post deleted successfully")
         return redirect("home")
     return render(request, "post_app/delete.html", {"post": post})
+
+def frontend_view(request):
+    posts = Post.objects.filter(category__name="Frontend")
+    for post in posts:
+        post.comments = Comment.objects.filter(post=post).count()
+        post.views = PostView.objects.filter(post=post).count()
+        post.likes = Like.objects.filter(post=post).count()
+    context = {
+        "posts": posts
+    }
+    return render(request, "auth_app/home.html", context)
+
+def backend_view(request):
+    posts = Post.objects.filter(category__name="Backend")
+    for post in posts:
+        post.comments = Comment.objects.filter(post=post).count()
+        post.views = PostView.objects.filter(post=post).count()
+        post.likes = Like.objects.filter(post=post).count()
+    context = {
+        "posts": posts
+    }
+    return render(request, "auth_app/home.html", context)
+
+def full_stack_view(request):
+    posts = Post.objects.filter(category__name="Full Stack")
+    for post in posts:
+        post.comments = Comment.objects.filter(post=post).count()
+        post.views = PostView.objects.filter(post=post).count()
+        post.likes = Like.objects.filter(post=post).count()
+    context = {
+        "posts": posts
+    }
+    return render(request, "auth_app/home.html", context)
