@@ -88,7 +88,11 @@ def about_view(request):
 def profile_view(request):
     # user = request.user
     # user = get_object_or_404(User, username=request.user)
-    user_profile = Profile.objects.get(user=request.user)
+    try:
+        user_profile = Profile.objects.get(user=request.user)
+    except:
+        user_profile = None
+    print(user_profile)
     user_info = UserForm(request.POST or None, instance=request.user)
     profile_info = ProfileForm(request.POST or None, request.FILES or None, instance=user_profile)
 
