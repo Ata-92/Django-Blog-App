@@ -21,7 +21,7 @@ class Post(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     status = models.CharField(max_length=50)
-    slug = models.SlugField(max_length=10, blank=False)
+    slug = models.SlugField(blank=False)
 
     def __str__(self):
         return self.title
