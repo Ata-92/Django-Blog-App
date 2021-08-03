@@ -53,7 +53,7 @@
           <p class="text-secondary h4">Comments</p>
           {% if post.comment_list %}
             {% for comment in post.comment_list %}
-              <p><span class="fw-bold">Comment by {{user}}</span> - <span>{{comment.time_stamp | naturaltime}}.</span></p>
+              <p><span class="fw-bold">Comment by {{post.user.username}}</span> - <span>{{comment.time_stamp | naturaltime}}.</span></p>
               {{comment.content}}
               <hr>
             {% endfor %}
