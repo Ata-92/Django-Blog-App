@@ -2,6 +2,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from post_app.forms import CommentForm, PostForm
 from django.contrib import messages
 from post_app.models import Category, Comment, Like, Post, PostView
+from django.views.generic.edit import DeleteView
+from django.urls import reverse_lazy
 
 # Create your views here.
 
@@ -78,13 +80,18 @@ def update_view(request, slug):
         return redirect("home")
     return render(request, "post_app/update.html", {"form": form})
 
-def delete_view(request, slug):
-    post = get_object_or_404(Post, slug=slug)
-    if request.method == "POST":
-        post.delete()
-        messages.success(request, "Post deleted successfully")
-        return redirect("home")
-    return render(request, "post_app/delete.html", {"post": post})
+# def delete_view(request, slug):
+#     post = get_object_or_404(Post, slug=slug)
+#     if request.method == "POST":
+#         post.delete()
+#         messages.success(request, "Post deleted successfully")
+#         return redirect("home")
+#     return render(request, "post_app/delete.html", {"post": post})
+
+class PostDelete(DeleteView):
+    model = Post
+    template_name = "post_app/delete.html"  #  default  "app/modelName.lower()_confirm_delete.html" = "fscohort/student_confirm_delete.html"
+    success_url = reverse_lazy("home")
 
 def frontend_view(request):
     posts = Post.objects.filter(category__name="Frontend")
